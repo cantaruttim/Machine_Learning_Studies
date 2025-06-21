@@ -20,3 +20,20 @@ lines(lowess(x,y), col="green")
 
 cat("The correlation among HousePrice and StoreArea is ", cor(x,y))
 # 0.1108888
+
+
+##### SIMPLE LINEAR REGRESSION #####
+
+fitted_Model <-lm(y~x)
+summary(fitted_Model)
+# Y = -837809.4 + (1462.7)x
+
+# how the model fits the actual value
+res <-stack(data.frame(Observed = y, Predicted = fitted(fitted_Model)))
+res <-cbind(res, x =rep(x, 2))
+
+library("lattice")
+xyplot(values ~x, data = res, group = ind, auto.key =TRUE)
+
+
+##### MULTIPLE LINEAR REGRESSION #####
